@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
+import BinaExactHero from './components/BinaExactHero';
 import SectionFoundationalIdea from './components/SectionFoundationalIdea';
 import SectionCurrentFocus from './components/SectionCurrentFocus';
 import SectionNextPhase from './components/SectionNextPhase';
@@ -15,9 +15,9 @@ export default function App() {
       <Navbar />
 
       {/* Main Page Flow with 6 Sections */}
-      <main id="hero" className="w-full flex flex-col">
-        {/* SECTION 01 — HERO */}
-        <HeroSection />
+      <main className="w-full flex flex-col">
+        {/* SECTION 01 — HERO (EXACT BINA HERO + INDIAN KIDS ON STONE) */}
+        <BinaExactHero />
 
         {/* SECTION 02 — THE FOUNDATIONAL IDEA */}
         <SectionFoundationalIdea />

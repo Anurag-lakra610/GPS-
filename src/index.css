@@ -10,6 +10,7 @@
     --gps-charcoal: #1c1c1a;
     --gps-muted: #595b57;
     --gps-sand: #fbf9f6;
+    --bina-yellow: #F7D928;
   }
 
   html {
@@ -36,41 +37,134 @@
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Subtle Organic reveal & image motion */
-.editorial-img-mask {
-  border-radius: clamp(1.25rem, 2.5vw, 2.5rem);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+/* ======================================================== */
+/* BINA HERO EXACT ANIMATIONS AND KEYFRAMES                 */
+/* ======================================================== */
+
+@keyframes landingHeroFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-.editorial-img-wide {
-  border-radius: clamp(1.5rem, 3vw, 3rem);
+@keyframes landingHeroRise {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Button & Pill Micro-Interactions */
-.gps-btn-primary {
-  background-color: #F15A29;
-  color: #FFFFFF;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+@keyframes landingHeroIdleFluffOne {
+  0% {
+    transform: translate(0) rotate(-0.66deg);
+  }
+  24% {
+    transform: translate(-3.3px, -5.5px) rotate(0.88deg);
+  }
+  52% {
+    transform: translate(2.2px, 3.3px) rotate(1.65deg);
+  }
+  76% {
+    transform: translate(-1.1px, 6.6px) rotate(-0.22deg);
+  }
+  100% {
+    transform: translate(0) rotate(-0.66deg);
+  }
 }
 
-.gps-btn-primary:hover {
-  background-color: #d94e20;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px -8px rgba(241, 90, 41, 0.45);
+@keyframes landingHeroIdleFluffTwo {
+  0% {
+    transform: translate(0) rotate(0.88deg);
+  }
+  28% {
+    transform: translate(4.4px, -7.7px) rotate(-1.21deg);
+  }
+  58% {
+    transform: translate(-3.3px, 2.2px) rotate(-1.98deg);
+  }
+  82% {
+    transform: translate(2.2px, 7.7px) rotate(0.33deg);
+  }
+  100% {
+    transform: translate(0) rotate(0.88deg);
+  }
 }
 
-.gps-btn-secondary {
-  background-color: #FFFFFF;
-  color: #1A1A18;
-  border: 1px solid rgba(26, 26, 24, 0.12);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+@keyframes landingHeroIdleBird {
+  0% {
+    transform: translate(0) rotate(-0.44deg);
+  }
+  35% {
+    transform: translate(-2.2px, -4.4px) rotate(0.77deg);
+  }
+  68% {
+    transform: translate(1.1px, 3.3px) rotate(-0.99deg);
+  }
+  100% {
+    transform: translate(0) rotate(-0.44deg);
+  }
 }
 
-.gps-btn-secondary:hover {
-  border-color: #F15A29;
-  color: #F15A29;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+@keyframes subtleWiggle {
+  0% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(-1.5deg);
+  }
+  40% {
+    transform: rotate(1.5deg);
+  }
+  60% {
+    transform: rotate(-1deg);
+  }
+  80% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.landing-hero-fade {
+  animation: landingHeroFade 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+}
+
+.landing-hero-rise {
+  animation: landingHeroRise 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+}
+
+.landing-hero-idle-fluff-one {
+  animation: landingHeroIdleFluffOne 6.8s ease-in-out infinite;
+  transform-origin: 50%;
+  will-change: transform;
+}
+
+.landing-hero-idle-fluff-two {
+  animation: landingHeroIdleFluffTwo 8.1s ease-in-out infinite;
+  animation-delay: -1.25s;
+  transform-origin: 50%;
+  will-change: transform;
+}
+
+.landing-hero-idle-bird {
+  animation: landingHeroIdleBird 4.9s ease-in-out infinite;
+  animation-delay: -0.45s;
+  transform-origin: 50%;
+  will-change: transform;
+}
+
+.cta-wiggle:hover {
+  animation: subtleWiggle 0.6s ease-in-out;
 }
 
 /* Smooth Reduced Motion Support */
