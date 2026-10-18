@@ -1,9 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Search, User, ShoppingBag, ChevronDown, Menu, X } from 'lucide-react';
+
+const NAV_ITEMS = [
+  {
+    name: 'Store',
+    path: 'https://www.gpsfdk.com/',
+    children: [
+      { name: 'Canvas', path: 'https://www.gpsfdk.com/canvas' },
+      { name: 'House Nameplates', path: 'https://www.gpsfdk.com/house-nameplates' }
+    ]
+  },
+  { name: 'School of Learning', path: '#', active: true },
+  { name: 'Love', path: 'https://www.gpsfdk.com/love' },
+  { name: 'Vision', path: 'https://www.gpsfdk.com/vision' },
+  { name: 'Partner', path: 'https://www.gpsfdk.com/partner' },
+  { name: 'Support', path: 'https://www.gpsfdk.com/support' }
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [storeDropdownOpen, setStoreDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,119 +31,201 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/92 backdrop-blur-md border-b border-black/[0.06] shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]'
-          : 'bg-white/80 backdrop-blur-sm border-b border-transparent'
-      }`}
-    >
-      <div className="w-full max-w-[1360px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between gap-6">
-        {/* Brand Logo & Name */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-[#0D5E3D] text-white flex items-center justify-center font-bold text-sm tracking-tight shadow-xs group-hover:bg-[#F15A29] transition-colors duration-300">
-            GPS
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[17px] font-bold text-[#1A1A18] tracking-tight leading-tight">
-              GPS FDK
-            </span>
-            <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-[#0D5E3D]">
-              School of Learning
-            </span>
-          </div>
-        </a>
+    <header className="fixed top-0 left-0 right-0 z-50 flex flex-col font-sans select-none">
+      <nav
+        className={`transition-all duration-500 w-full ${
+          scrolled ? 'bg-[#FFF7E7]/95 backdrop-blur-lg shadow-md' : 'bg-[#FFF7E7]'
+        }`}
+      >
+        <div className="w-full max-w-[1360px] mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between lg:justify-center lg:gap-10 h-[60px] w-full">
+            {/* Left: Brand Logo & Desktop Nav Links */}
+            <div className="flex items-center lg:gap-10 h-full">
+              {/* Official GPS Logo */}
+              <a
+                href="https://www.gpsfdk.com/"
+                className="flex items-center gap-2 group h-full py-2 shrink-0"
+                aria-label="GPSFDK Home"
+              >
+                <img
+                  src="/assets/gps-logo.webp"
+                  alt="GPSFDK"
+                  className="max-w-[42px] sm:max-w-[50px] h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                />
+              </a>
 
-        {/* Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-8 text-[14.5px] font-medium text-[#454743]">
-          <a
-            href="#the-idea"
-            className="hover:text-[#F15A29] transition-colors duration-200"
-          >
-            The Foundational Idea
-          </a>
-          <a
-            href="#current-focus"
-            className="hover:text-[#F15A29] transition-colors duration-200 flex items-center gap-1.5"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0D5E3D]"></span>
-            Current Focus
-          </a>
-          <a
-            href="#next-phase"
-            className="hover:text-[#F15A29] transition-colors duration-200"
-          >
-            Next Phase
-          </a>
-          <a
-            href="#long-term-vision"
-            className="hover:text-[#F15A29] transition-colors duration-200"
-          >
-            Long-Term Vision
-          </a>
-        </nav>
+              {/* Desktop Nav Items */}
+              <div className="hidden lg:flex items-center gap-10 h-full">
+                {NAV_ITEMS.map((item) =>
+                  item.children ? (
+                    <div
+                      key={item.name}
+                      ref={dropdownRef}
+                      className="relative group h-full flex items-center"
+                      onMouseEnter={() => setStoreDropdownOpen(true)}
+                      onMouseLeave={() => setStoreDropdownOpen(false)}
+                    >
+                      <a
+                        href={item.path}
+                        className="flex items-center gap-1 text-xs font-normal text-[#424245] hover:text-[#F15A29] transition-colors duration-300"
+                      >
+                        {item.name}
+                        <ChevronDown
+                          className={`w-3 h-3 transition-transform duration-300 ${
+                            storeDropdownOpen ? 'rotate-180 text-[#F15A29]' : 'group-hover:rotate-180'
+                          }`}
+                        />
+                      </a>
 
-        {/* Right CTA */}
-        <div className="hidden sm:flex items-center gap-4">
-          <a
-            href="#final-cta"
-            className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#F15A29] hover:bg-[#d94e20] text-white text-[13.5px] font-semibold transition-all duration-300 hover:shadow-[0_8px_20px_-6px_rgba(241,90,41,0.45)] hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <span>Start Exploring</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
+                      {/* Dropdown Menu */}
+                      <div
+                        className={`absolute left-1/2 top-full w-max -translate-x-1/2 translate-y-1 pt-2 transition-all duration-200 ${
+                          storeDropdownOpen
+                            ? 'visible opacity-100 translate-y-0'
+                            : 'invisible opacity-0'
+                        }`}
+                      >
+                        <div className="flex flex-col gap-1.5 bg-white rounded-xl shadow-xl border border-gray-100 p-2 min-w-[200px]">
+                          {item.children.map((child) => (
+                            <a
+                              key={child.name}
+                              href={child.path}
+                              className="flex items-center justify-between gap-6 whitespace-nowrap rounded-lg px-4 py-2.5 text-sm text-gray-700 hover:bg-[#F15A29]/10 hover:text-[#F15A29] transition-colors"
+                            >
+                              <span>{child.name}</span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <a
+                      key={item.name}
+                      href={item.path}
+                      className={`text-xs font-normal transition-colors duration-300 ${
+                        item.active
+                          ? 'text-[#F15A29] font-medium'
+                          : 'text-[#424245] hover:text-[#F15A29]'
+                      }`}
+                    >
+                      {item.name}
+                    </a>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Right Action Icons (Exact like gpsfdk.com) */}
+            <div className="flex items-center gap-0.5 sm:gap-2 shrink-0">
+              {/* Search Icon */}
+              <button
+                type="button"
+                aria-label="Search"
+                className="p-2 text-[#424245] hover:text-[#F15A29] transition-colors duration-300 cursor-pointer"
+                onClick={() => window.open('https://www.gpsfdk.com/', '_blank')}
+              >
+                <Search className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.6]" />
+              </button>
+
+              {/* Account / User Icon */}
+              <a
+                href="https://www.gpsfdk.com/register"
+                aria-label="Sign in"
+                className="p-2 text-[#424245] hover:text-[#F15A29] transition-colors duration-300 block"
+              >
+                <User className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.6]" />
+              </a>
+
+              {/* Shopping Bag / Cart Icon */}
+              <a
+                href="https://www.gpsfdk.com/"
+                aria-label="Cart"
+                className="relative p-2 text-[#424245] hover:text-[#F15A29] transition-colors duration-300 block"
+              >
+                <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.6]" />
+              </a>
+
+              {/* Mobile Menu Hamburger / Close Button */}
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Menu"
+                className="lg:hidden p-2 text-[#424245] hover:text-[#F15A29] transition-colors cursor-pointer"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-6 h-6 stroke-[1.8]" />
+                ) : (
+                  <Menu className="w-6 h-6 stroke-[1.8]" />
+                )}
+              </button>
+            </div>
+          </div>
         </div>
+      </nav>
 
-        {/* Mobile menu trigger */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 lg:hidden text-[#1A1A18] hover:text-[#F15A29]"
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer (Exact like gpsfdk.com with bg-secondary #0B5D3B) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-black/10 px-6 py-6 flex flex-col gap-4 text-base font-medium shadow-xl">
-          <a
-            href="#the-idea"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-[#1A1A18] hover:text-[#F15A29] py-1"
-          >
-            The Foundational Idea
-          </a>
-          <a
-            href="#current-focus"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-[#1A1A18] hover:text-[#F15A29] py-1"
-          >
-            Current Focus
-          </a>
-          <a
-            href="#next-phase"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-[#1A1A18] hover:text-[#F15A29] py-1"
-          >
-            Next Phase
-          </a>
-          <a
-            href="#long-term-vision"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-[#1A1A18] hover:text-[#F15A29] py-1"
-          >
-            Long-Term Vision
-          </a>
-          <a
-            href="#final-cta"
-            onClick={() => setMobileMenuOpen(false)}
-            className="inline-flex items-center justify-center gap-2 h-12 w-full rounded-full bg-[#F15A29] text-white font-semibold mt-2"
-          >
-            <span>Start Exploring</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
+        <div className="fixed inset-0 z-40 bg-[#0B5D3B] pt-[60px] animate-in fade-in slide-in-from-right duration-300">
+          <div className="p-6 space-y-1 h-full overflow-y-auto pb-32">
+            {NAV_ITEMS.map((item) => (
+              <div key={item.name} className="border-b border-white/10">
+                <a
+                  href={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block text-xl font-semibold py-3 transition-colors ${
+                    item.active ? 'text-[#F15A29]' : 'text-white hover:text-[#F15A29]'
+                  }`}
+                >
+                  {item.name}
+                </a>
+                {item.children && (
+                  <div className="pl-4 pb-2 space-y-1">
+                    {item.children.map((child) => (
+                      <a
+                        key={child.name}
+                        href={child.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block text-base font-normal py-2 text-white/80 hover:text-[#F15A29] transition-colors"
+                      >
+                        {child.name}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            <a
+              href="https://www.gpsfdk.com/"
+              className="block w-full text-left text-xl text-white font-semibold py-3 border-b border-white/10 hover:text-[#F15A29] transition-colors"
+            >
+              Search
+            </a>
+            <a
+              href="https://www.gpsfdk.com/"
+              className="block w-full text-left text-xl text-white font-semibold py-3 border-b border-white/10 hover:text-[#F15A29] transition-colors"
+            >
+              Cart
+            </a>
+            <a
+              href="https://www.gpsfdk.com/register"
+              className="block text-xl text-[#F15A29] font-semibold py-3 hover:underline"
+            >
+              Register
+            </a>
+          </div>
         </div>
       )}
     </header>

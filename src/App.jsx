@@ -10,12 +10,12 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white text-[#1A1A18] font-sf antialiased selection:bg-[#F15A29] selection:text-white">
+    <div className="min-h-screen bg-white text-[#1A1A18] font-sf antialiased selection:bg-[#F15A29] selection:text-white w-full overflow-x-hidden">
       {/* Fixed Header */}
       <Navbar />
 
       {/* Main Page Flow with 6 Sections */}
-      <main className="w-full flex flex-col">
+      <main className="w-full flex flex-col overflow-x-hidden">
         {/* SECTION 01 — HERO (EXACT BINA HERO + INDIAN KIDS ON STONE) */}
         <BinaExactHero />
 

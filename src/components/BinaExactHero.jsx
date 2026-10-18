@@ -5,12 +5,12 @@ export default function BinaExactHero() {
   return (
     <section
       id="hero"
-      className="landing-hero landing-hero-static relative mt-20 w-full overflow-hidden select-none bg-[#19b5e5] h-[clamp(34rem,82vw,48rem)] md:h-[clamp(34rem,52vw,50rem)] xl:h-[calc(100svh-5rem)] min-h-[580px]"
+      className="landing-hero landing-hero-static relative mt-[60px] w-full overflow-hidden select-none bg-[#19b5e5] h-[clamp(34rem,82vw,48rem)] md:h-[clamp(34rem,52vw,50rem)] xl:h-[calc(100svh-60px)] min-h-[580px]"
     >
       {/* ========================================================= */}
       {/* 1. BACKGROUND LAYERS (SKY & ROLLING MEADOW)               */}
       {/* ========================================================= */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-visible">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         
         {/* Layer 0: Sky Canvas (Cyan Textured Sky) */}
         <div className="absolute will-change-transform z-[0] top-[-8%] left-[-5%] h-[116%] w-[110%]">
@@ -76,9 +76,9 @@ export default function BinaExactHero() {
       {/* ========================================================= */}
       {/* 2. FOREGROUND BOTANICALS (EXACT BINA POSITIONS & SIZES)   */}
       {/* ========================================================= */}
-      
-      {/* Dandelion 02: Far Left Big Fluffy Dandelion Clock */}
-      <img
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-[12]">
+        {/* Dandelion 02: Far Left Big Fluffy Dandelion Clock */}
+        <img
         src="/assets/bina-hero/dandelion-02.png"
         alt="Dandelion Fluff Clock"
         className="landing-hero-fade pointer-events-none absolute bottom-0 left-[-7%] z-[12] w-[40%] object-contain object-bottom md:left-[0.5%] md:w-[21.8%]"
@@ -109,13 +109,14 @@ export default function BinaExactHero() {
         style={{ animationDelay: '0.5s' }}
       />
 
-      {/* Clover Patch Center Ground */}
-      <img
-        src="/assets/bina-hero/clover.png"
-        alt="Green Clovers"
-        className="landing-hero-fade pointer-events-none absolute bottom-0 left-[50%] z-[12] w-[26%] object-contain object-bottom md:left-[54.2%] md:w-[14.1%]"
-        style={{ animationDelay: '0.5s' }}
-      />
+        {/* Clover Patch Center Ground */}
+        <img
+          src="/assets/bina-hero/clover.png"
+          alt="Green Clovers"
+          className="landing-hero-fade pointer-events-none absolute bottom-0 left-[50%] z-[12] w-[26%] object-contain object-bottom md:left-[54.2%] md:w-[14.1%]"
+          style={{ animationDelay: '0.5s' }}
+        />
+      </div>
 
       {/* ========================================================= */}
       {/* 3. SOCIAL MEDIA PILL RAIL (EXACT LIKE BINA RIGHT RAIL)    */}
@@ -161,21 +162,12 @@ export default function BinaExactHero() {
       {/* ========================================================= */}
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-between pointer-events-none">
         
-        {/* Top Text Cluster */}
-        <div className="relative pointer-events-auto flex flex-col items-center px-4 sm:px-6 pt-4 sm:pt-7 md:pt-8 text-center max-w-4xl mx-auto w-full">
-          
-          {/* Subtitle / Age Descriptor */}
-          <p
-            className="landing-hero-fade mb-2 sm:mb-3.5 text-[12.5px] xs:text-[14px] sm:text-[16px] md:text-[17px] text-black font-semibold tracking-tight max-w-[310px] xs:max-w-md sm:max-w-2xl md:max-w-3xl leading-snug"
-            style={{ animationDelay: '0.4s' }}
-          >
-            A place for children to explore what they love, try what they've never tried, and discover where their curiosity takes them.
-          </p>
-
-          {/* Main Hero Headline */}
+        {/* Top Text Cluster: Headline (48px) and Action CTA */}
+        <div className="relative pointer-events-auto flex flex-col items-center px-4 sm:px-6 pt-5 sm:pt-8 md:pt-10 text-center max-w-4xl mx-auto w-full">
+          {/* Main Hero Headline (48px on desktop) */}
           <h1
-            className="landing-hero-fade mb-4 sm:mb-6 text-[26px] xs:text-[34px] sm:text-[46px] md:text-[58px] lg:text-[72px] text-black font-extrabold tracking-[-0.035em] leading-[1.08] sm:leading-[1.04] max-w-xs xs:max-w-md sm:max-w-2xl md:max-w-4xl"
-            style={{ animationDelay: '0.5s' }}
+            className="landing-hero-fade mb-5 sm:mb-6 text-[24px] xs:text-[30px] sm:text-[38px] md:text-[48px] text-black font-extrabold tracking-[-0.03em] leading-[1.12] sm:leading-[1.1] max-w-xs xs:max-w-md sm:max-w-2xl md:max-w-3xl break-words"
+            style={{ animationDelay: '0.4s' }}
           >
             Bored? Come Learn Something You Love.
           </h1>
