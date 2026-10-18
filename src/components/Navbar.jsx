@@ -1,64 +1,133 @@
-import React from 'react';
-import AudioController from './AudioController';
-import { ArrowRight, User } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 w-full z-40 bg-white/70 backdrop-blur-xl border-b border-white/40 shadow-xs">
-      <div className="h-20 w-full max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-6">
-        
-        {/* Brand Logo */}
-        <div className="flex items-center gap-3 shrink-0">
-          <div className="w-9 h-9 rounded-xl bg-orange-500 text-white font-extrabold flex items-center justify-center shadow-md text-sm tracking-tight">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/92 backdrop-blur-md border-b border-black/[0.06] shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]'
+          : 'bg-white/80 backdrop-blur-sm border-b border-transparent'
+      }`}
+    >
+      <div className="w-full max-w-[1360px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between gap-6">
+        {/* Brand Logo & Name */}
+        <a href="#" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 rounded-xl bg-[#0D5E3D] text-white flex items-center justify-center font-bold text-sm tracking-tight shadow-xs group-hover:bg-[#F15A29] transition-colors duration-300">
             GPS
           </div>
-          <span className="font-extrabold text-xl text-slate-900 tracking-tight">
-            GPS Love
-          </span>
-        </div>
+          <div className="flex flex-col">
+            <span className="text-[17px] font-bold text-[#1A1A18] tracking-tight leading-tight">
+              GPS FDK
+            </span>
+            <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-[#0D5E3D]">
+              School of Learning
+            </span>
+          </div>
+        </a>
 
         {/* Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-7">
-          <a href="#why-love" className="text-sm font-bold text-orange-600 border-b-2 border-orange-500 pb-0.5">
-            Why Love
+        <nav className="hidden lg:flex items-center gap-8 text-[14.5px] font-medium text-[#454743]">
+          <a
+            href="#the-idea"
+            className="hover:text-[#F15A29] transition-colors duration-200"
+          >
+            The Foundational Idea
           </a>
-          <a href="#what-we-do" className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-            What We Do
+          <a
+            href="#current-focus"
+            className="hover:text-[#F15A29] transition-colors duration-200 flex items-center gap-1.5"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0D5E3D]"></span>
+            Current Focus
           </a>
-          <a href="#ecosystem" className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-            Life-Cycle Ecosystem
+          <a
+            href="#next-phase"
+            className="hover:text-[#F15A29] transition-colors duration-200"
+          >
+            Next Phase
           </a>
-          <a href="#roadmap" className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-            Roadmap
-          </a>
-          <a href="#impact" className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-            Real Impact
-          </a>
-          <a href="#dignity" className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-            Safety & Dignity
+          <a
+            href="#long-term-vision"
+            className="hover:text-[#F15A29] transition-colors duration-200"
+          >
+            Long-Term Vision
           </a>
         </nav>
 
-        {/* Right CTA & Sound Controls */}
-        <div className="flex items-center gap-4 shrink-0">
-          {/* Audio Breeze Sound Synthesizer Toggle */}
-          <AudioController />
-
-          {/* CTA Pill Button */}
+        {/* Right CTA */}
+        <div className="hidden sm:flex items-center gap-4">
           <a
-            href="#join"
-            className="inline-flex items-center justify-center h-11 px-5 rounded-full bg-orange-500 text-white text-xs font-bold shadow-md hover:bg-orange-600 hover:shadow-lg transition-all duration-200 gap-2"
+            href="#final-cta"
+            className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#F15A29] hover:bg-[#d94e20] text-white text-[13.5px] font-semibold transition-all duration-300 hover:shadow-[0_8px_20px_-6px_rgba(241,90,41,0.45)] hover:-translate-y-0.5 active:translate-y-0"
           >
-            <span>Be Part of the Journey</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <span>Start Exploring</span>
+            <ArrowRight className="w-4 h-4" />
           </a>
-
-          {/* User Icon Badge */}
-          <div className="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-sm">
-            <User className="w-4 h-4" />
-          </div>
         </div>
+
+        {/* Mobile menu trigger */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="p-2 lg:hidden text-[#1A1A18] hover:text-[#F15A29]"
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-white border-b border-black/10 px-6 py-6 flex flex-col gap-4 text-base font-medium shadow-xl">
+          <a
+            href="#the-idea"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-[#1A1A18] hover:text-[#F15A29] py-1"
+          >
+            The Foundational Idea
+          </a>
+          <a
+            href="#current-focus"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-[#1A1A18] hover:text-[#F15A29] py-1"
+          >
+            Current Focus
+          </a>
+          <a
+            href="#next-phase"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-[#1A1A18] hover:text-[#F15A29] py-1"
+          >
+            Next Phase
+          </a>
+          <a
+            href="#long-term-vision"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-[#1A1A18] hover:text-[#F15A29] py-1"
+          >
+            Long-Term Vision
+          </a>
+          <a
+            href="#final-cta"
+            onClick={() => setMobileMenuOpen(false)}
+            className="inline-flex items-center justify-center gap-2 h-12 w-full rounded-full bg-[#F15A29] text-white font-semibold mt-2"
+          >
+            <span>Start Exploring</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      )}
     </header>
   );
 }

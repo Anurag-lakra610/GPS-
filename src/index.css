@@ -2,90 +2,83 @@
 
 @layer base {
   :root {
-    --primary-orange: #ff5722;
-    --primary-orange-hover: #e64a19;
-    --sky-cyan: #19b5e5;
+    --gps-orange: #F15A29;
+    --gps-orange-hover: #d94e20;
+    --gps-green: #0D5E3D;
+    --gps-green-light: #167a52;
+    --gps-dark: #121312;
+    --gps-charcoal: #1c1c1a;
+    --gps-muted: #595b57;
+    --gps-sand: #fbf9f6;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #FFFFFF;
+    color: var(--gps-charcoal);
   }
 
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Helvetica Neue", Arial, sans-serif;
     overflow-x: hidden;
-    background-color: #19b5e5;
-    color: #0f172a;
+    background-color: #FFFFFF;
+    color: #1A1A18;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }
 
-/* Painterly Paper Texture Overlay */
-.painterly-canvas {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px), radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px, 12px 12px;
-  background-position: 0 0, 6px 6px;
+/* Editorial Typography Helpers */
+.font-sf {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Custom Floating Animations */
-@keyframes floatSway {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-12px) rotate(3deg);
-  }
+/* Subtle Organic reveal & image motion */
+.editorial-img-mask {
+  border-radius: clamp(1.25rem, 2.5vw, 2.5rem);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07), 0 0 1px 1px rgba(0, 0, 0, 0.04);
 }
 
-@keyframes birdWingFlap {
-  0%, 100% {
-    transform: scaleY(1) rotate(0deg);
-  }
-  50% {
-    transform: scaleY(0.88) rotate(-2deg);
-  }
+.editorial-img-wide {
+  border-radius: clamp(1.5rem, 3vw, 3rem);
 }
 
-@keyframes seedDrift {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.9;
-  }
-  80% {
-    opacity: 0.9;
-  }
-  100% {
-    transform: translate(-300px, -200px) rotate(180deg);
-    opacity: 0;
-  }
+/* Button & Pill Micro-Interactions */
+.gps-btn-primary {
+  background-color: #F15A29;
+  color: #FFFFFF;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(255, 87, 34, 0.4), 0 0 30px rgba(255, 87, 34, 0.2);
+.gps-btn-primary:hover {
+  background-color: #d94e20;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(241, 90, 41, 0.45);
+}
+
+.gps-btn-secondary {
+  background-color: #FFFFFF;
+  color: #1A1A18;
+  border: 1px solid rgba(26, 26, 24, 0.12);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gps-btn-secondary:hover {
+  border-color: #F15A29;
+  color: #F15A29;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+}
+
+/* Smooth Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  50% {
-    box-shadow: 0 0 25px rgba(255, 87, 34, 0.7), 0 0 50px rgba(255, 87, 34, 0.4);
-  }
-}
-
-.animate-float-sway {
-  animation: floatSway 6s ease-in-out infinite;
-}
-
-.animate-bird-flap {
-  animation: birdWingFlap 3s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 3s infinite;
-}
-
-/* Glassmorphism card utility */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
 }
